@@ -6,8 +6,8 @@
 "use strict";
 
 const Analytics = {
-  GTM_ID: "",   // 例: "GTM-XXXXXXX"（Google Tag Manager コンテナID）
-  GA4_ID: "",   // 例: "G-XXXXXXXXXX"（GA4 測定ID）
+  GTM_ID: "GTM-P5R4Z852",   // Google Tag Manager コンテナID
+  GA4_ID: "G-5W11CSM2YC",   // GA4 測定ID
 
   init() {
     if (typeof document === "undefined") return;   // ヘッドレステスト時は無効
