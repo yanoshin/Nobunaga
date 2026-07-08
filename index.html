@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>吉法師の野望・全国版風 歴史SLG</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- タイトル画面 -->
+<div id="title-screen" class="screen">
+  <div class="title-box">
+    <h1>吉法師の野望</h1>
+    <h2>─ 全国版風 歴史シミュレーション ─</h2>
+    <p class="title-note">時は戦国、乱世の梟雄となりて天下統一を目指せ</p>
+    <div class="title-menu">
+      <button id="btn-new-50">はじめから（全国50ヶ国モード）</button>
+      <button id="btn-new-17">はじめから（17ヶ国モード）</button>
+      <button id="btn-load">つづきから（セーブデータ）</button>
+    </div>
+    <p class="title-credit">1560年 桶狭間前夜より</p>
+  </div>
+</div>
+
+<!-- 大名選択画面 -->
+<div id="select-screen" class="screen hidden">
+  <div class="select-layout">
+    <div class="select-map-wrap">
+      <h2>プレイする大名を選択せよ</h2>
+      <div id="select-map"></div>
+    </div>
+    <div class="select-list-wrap">
+      <div id="select-list"></div>
+      <button id="btn-back-title" class="sub-btn">タイトルへ戻る</button>
+    </div>
+  </div>
+</div>
+
+<!-- 能力スロット画面 -->
+<div id="slot-screen" class="screen hidden">
+  <div class="slot-box">
+    <h2 id="slot-daimyo-name"></h2>
+    <div id="slot-portrait"></div>
+    <p>そなたの器量、天運に委ねん──</p>
+    <table class="slot-table">
+      <tr><th>健康</th><td id="slot-health">--</td></tr>
+      <tr><th>野心</th><td id="slot-amb">--</td></tr>
+      <tr><th>運</th><td id="slot-luck">--</td></tr>
+      <tr><th>魅力</th><td id="slot-charm">--</td></tr>
+      <tr><th>知力</th><td id="slot-iq">--</td></tr>
+    </table>
+    <div class="slot-btns">
+      <button id="btn-slot-spin">運命の賽を振る</button>
+      <button id="btn-slot-ok" disabled>この能力で始める</button>
+    </div>
+    <p id="slot-remain"></p>
+  </div>
+</div>
+
+<!-- メインゲーム画面 -->
+<div id="game-screen" class="screen hidden">
+  <div id="topbar">
+    <span id="tb-date"></span>
+    <span id="tb-player"></span>
+    <span id="tb-provs"></span>
+    <span class="tb-right">
+      <button id="btn-save" class="sub-btn">セーブ</button>
+      <button id="btn-quit" class="sub-btn">タイトルへ</button>
+    </span>
+  </div>
+  <div id="main-layout">
+    <div id="map-container"></div>
+    <div id="side-panel">
+      <div id="phase-banner"></div>
+      <div id="prov-info"></div>
+      <div id="command-area"></div>
+    </div>
+  </div>
+  <div id="log-area"></div>
+</div>
+
+<!-- 合戦画面 -->
+<div id="battle-screen" class="screen hidden">
+  <div id="battle-header"></div>
+  <div id="battle-layout">
+    <div id="battle-grid"></div>
+    <div id="battle-side">
+      <div id="battle-info"></div>
+      <div id="battle-units"></div>
+      <div id="battle-controls"></div>
+    </div>
+  </div>
+  <div id="battle-log"></div>
+</div>
+
+<!-- 汎用モーダル -->
+<div id="modal-overlay" class="hidden">
+  <div id="modal-box">
+    <div id="modal-title"></div>
+    <div id="modal-body"></div>
+    <div id="modal-buttons"></div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/game.js"></script>
+<script src="js/battle.js"></script>
+<script src="js/ai.js"></script>
+<script src="js/portrait.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
