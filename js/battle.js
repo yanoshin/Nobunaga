@@ -24,6 +24,15 @@ const Battle = {
     } else {
       result = this.auto(opts, from, target);
     }
+    if (playerInvolved) {
+      const playerAttacks = atkOwner.id === G.playerId;
+      Analytics.track("battle", {
+        role: playerAttacks ? "attack" : "defend",
+        won: playerAttacks ? result.attackerWon : !result.attackerWon,
+        target: target.name,
+        tactical: !!result.interactive,
+      });
+    }
     await this.finish(opts, from, target, result);
     return result;
   },

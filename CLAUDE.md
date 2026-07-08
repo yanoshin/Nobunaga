@@ -14,7 +14,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Architecture
 
-`index.html` が `js/` を **data.js → game.js → battle.js → ai.js → portrait.js → ui.js → main.js の順で読み込む**。全ファイルがグローバル名前空間を共有し、後のファイルが前のファイルのシンボルに依存する（順序変更・モジュール化は全体の書き換えになるので注意）。
+`index.html` が `js/` を **analytics.js → data.js → game.js → battle.js → ai.js → portrait.js → ui.js → main.js の順で読み込む**。全ファイルがグローバル名前空間を共有し、後のファイルが前のファイルのシンボルに依存する（順序変更・モジュール化は全体の書き換えになるので注意）。
 
 - **`js/data.js`** — 静的データのみ。50ヶ国の定義（座標・隣接・石高/町の基準値）、17ヶ国モードの対象国リスト `MODE17_PROVINCES`、1560年の大名44家、新大名名プール、大名カラー。
 - **`js/game.js`** — 中核。可変ゲーム状態はグローバル `let G` 1個（純粋なJSONデータ。関数を含まないため `JSON.stringify` がそのままセーブデータになる）。`Game`（状態操作・所有権移動・大名死亡規則）、`Events`（季節イベント: 加齢/収入/台風/収穫/疫病/一揆/謀反/本能寺の変）、`Commands`（プレイヤーの各国コマンド）、`PlayerPhase`。

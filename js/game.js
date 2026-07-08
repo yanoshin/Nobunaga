@@ -771,7 +771,12 @@ const PlayerPhase = {
         UI.setPhase(`【${Game.dateStr()}】 ${p.name} の命令`);
         const cmd = await UI.commandMenu(p);
         if (cmd === "skipAll") return;
+        const advice = Advisor.advise(p);
         done = await Commands[cmd](p);
+        if (done) Analytics.track("command", {
+          command: cmd,
+          advisor_follow: advice.length > 0 && advice[0].key === cmd,
+        });
         UI.refresh();
       }
     }

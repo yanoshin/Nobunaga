@@ -22,6 +22,7 @@ const Main = {
 
   // ---------------- 新規ゲーム ----------------
   startNew(mode) {
+    Analytics.track("new_game", { game_mode: mode });
     Game.newGame(mode);
     this.showSelectScreen();
   },
@@ -59,6 +60,7 @@ const Main = {
       `❤️健康${d.health} 🔥野心${d.amb} 🎲運${d.luck} ✨魅力${d.charm} 🧠知力${d.iq}\n` +
       `※能力は次の画面で運命の賽により決まり直す`, { portrait: d });
     if (!ok) return;
+    Analytics.track("select_daimyo", { daimyo: d.name, game_mode: G.mode });
     G.playerId = d.id;
     d.isPlayer = true;
     this.showSlotScreen(d);
@@ -85,6 +87,7 @@ const Main = {
     const doSpin = () => {
       if (spins <= 0) return;
       spins--;
+      Analytics.track("slot_spin", { remaining: spins });
       spinBtn.disabled = true;
       let count = 0;
       const timer = setInterval(() => {
@@ -121,6 +124,7 @@ const Main = {
   saveGame() {
     if (!this.snapshot) { UI.alert("まだセーブできませぬ。"); return; }
     localStorage.setItem(SAVE_KEY, this.snapshot);
+    Analytics.track("game_save", { game_year: G.year });
     UI.alert(`セーブしました（${Game.dateStr()}の初めから再開されます）。`);
   },
 
@@ -128,6 +132,7 @@ const Main = {
     const data = localStorage.getItem(SAVE_KEY);
     if (!data) { UI.alert("セーブデータがありませぬ。"); return; }
     G = JSON.parse(data);
+    Analytics.track("game_load", { game_year: G.year, game_mode: G.mode });
     const mc = $("#map-container");
     mc.innerHTML = ""; mc._svg = null;
     this.gameLoop();
@@ -136,6 +141,10 @@ const Main = {
   // ---------------- メインループ ----------------
   startGame() {
     const d = Game.player();
+    Analytics.track("game_start", {
+      daimyo: d.name, game_mode: G.mode,
+      health: d.health, amb: d.amb, luck: d.luck, charm: d.charm, iq: d.iq,
+    });
     UI.log(`${d.name}、${G.provinces[d.home].name}より天下統一への道を歩み始める。`);
     this.gameLoop();
   },
@@ -170,6 +179,11 @@ const Main = {
 
   async gameOver() {
     UI.refresh();
+    Analytics.track("game_over", {
+      result: G.over, game_year: G.year, turn: G.turn,
+      daimyo: Game.player().name, game_mode: G.mode,
+      provinces: Game.ownedBy(G.playerId).length,
+    });
     if (G.over === "win") {
       const d = Game.player();
       await UI.alert(

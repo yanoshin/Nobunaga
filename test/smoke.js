@@ -26,7 +26,7 @@ const ctx = {
 ctx.globalThis = ctx;
 vm.createContext(ctx);
 
-for (const f of ["data.js", "game.js", "battle.js", "ai.js"]) {
+for (const f of ["analytics.js", "data.js", "game.js", "battle.js", "ai.js"]) {
   const src = fs.readFileSync(path.join(__dirname, "..", "js", f), "utf8");
   vm.runInContext(src, ctx, { filename: f });
 }
